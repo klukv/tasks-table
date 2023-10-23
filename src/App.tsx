@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AUTH_URL, MAIN_URL } from "./utils/const";
+import Main from "./pages/main";
+import Auth from "./pages/auth";
+import Header from "./components/header";
 
 function App() {
+  const location = useLocation();
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      {!location.pathname.includes("signin") ? <Header /> : ""}
+      <Routes>
+        <Route path={MAIN_URL} element={<Main />} />
+        <Route path={AUTH_URL} element={<Auth />} />
+      </Routes>
     </div>
   );
 }
