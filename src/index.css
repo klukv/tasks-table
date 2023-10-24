@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #eef4fe;
+}
+table {
+  border: none;
+}
+table thead th {
+  border: none;
+}
+table tbody tr:last-child td {
+  border-bottom: 1px solid #93a8f4;
+}
+table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 16px;
+}
+table tbody tr:last-child td:last-child {
+  border-radius: 0 0 16px 0;
+}
