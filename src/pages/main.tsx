@@ -2,6 +2,7 @@ import React from "react";
 import arrow_down from "../assets/img/arrow_down.svg";
 import plus_adding from "../assets/img/adding_idea.svg";
 import { useNavigate } from "react-router-dom";
+import Row_table from "../components/row_table";
 
 function Main() {
   const navigate = useNavigate();
@@ -80,32 +81,8 @@ function Main() {
               {Array(5)
                 .fill(null)
                 .map((row, index) => (
-                  <tr
-                    key={index}
-                    className="first:border-l-[1px] first:border-[#93A8F4] last:border-l-[1px] last:border-[#93A8F4] even:bg-[#cbdfff]"
-                  >
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">
-                      1
-                    </td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">
-                      1
-                    </td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">
-                      1
-                    </td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">
-                      1
-                    </td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">
-                      1
-                    </td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">
-                      1
-                    </td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">
-                      1
-                    </td>
-                  </tr>
+                  //поменять key на id
+                  <Row_table key={index} {...row}/>
                 ))}
             </tbody>
           </table>
