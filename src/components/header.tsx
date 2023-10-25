@@ -10,7 +10,7 @@ function Header() {
   };
   return (
     <header className="header bg-[#CDE1FF]">
-      <div className="header__inner flex max-w-[1750px] mx-auto justify-between items-center">
+      <div className="header__inner flex max-w-[1750px] mx-auto justify-between items-center max-2xl:max-w-[1336px]">
         <div className="header__logo cursor-pointer" onClick={() => clickLink("/")}>
           <img src={logo} alt="logo" />
         </div>

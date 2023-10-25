@@ -13,7 +13,7 @@ function Main() {
 
   return (
     <main className="ideas">
-      <div className="cotainer max-w-[1750px] mx-auto">
+      <div className="cotainer max-w-[1750px] mx-auto max-2xl:max-w-[1336px]">
         <h2 className="ideas__title mt-[20px] text-[20px] mb-[10px]">
           Список предложенных идей:
         </h2>
