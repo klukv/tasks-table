@@ -1,12 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import close_btn from "../assets/img/close_btn.svg";
 import attach_btn from "../assets/img/attach_btn.svg";
 
 function Create_Task() {
+  const navigate = useNavigate();
+
+  const clickLink = (route: string) => {
+    navigate(route);
+  };
   return (
     <div className="modal max-w-[500px] mx-auto">
       <div className="modal__inner relative rounded-[15px] bg-[#CDE1FF] mt-[120px] p-[30px] shadow-[0_1px_4px_1px_rgba(0,0,0,0.3)]">
-        <button className="modal__close-btn absolute w-[14px] h-[14px] top-[12px] right-[12px]">
+        <button
+          className="modal__close-btn absolute w-[14px] h-[14px] top-[12px] right-[12px]"
+          onClick={() => clickLink('/')}
+        >
           <img src={close_btn} className="w-full h-full" alt="close" />
         </button>
         <h2 className="modal__title text-[24px] mb-[40px] text-center">

@@ -1,8 +1,14 @@
 import React from "react";
 import arrow_down from "../assets/img/arrow_down.svg";
 import plus_adding from "../assets/img/adding_idea.svg";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const navigate = useNavigate();
+
+  const clickLink = (route: string) => {
+    navigate(route);
+  };
 
   return (
     <main className="ideas">
@@ -32,7 +38,10 @@ function Main() {
             </button>
           </div>
           <div className="ideas__buttons-add">
-            <button className="ideas__adding-btn relative rounded-[7px] py-[8px] pr-[12px] pl-[45px] bg-[#E1EDFF] border-[1px] border-solid border-[#AABBF6] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] hover:bg-[#95a9f1] duration-[200ms] ease-in-out">
+            <button
+              className="ideas__adding-btn relative rounded-[7px] py-[8px] pr-[12px] pl-[45px] bg-[#E1EDFF] border-[1px] border-solid border-[#AABBF6] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] hover:bg-[#95a9f1] duration-[200ms] ease-in-out"
+              onClick={() => clickLink('create-idea')}
+            >
               Добавить идею{" "}
               <span className="plus absolute top-[13px] left-[16px] w-[15px] h-[15px]">
                 <img src={plus_adding} className="w-full h-full" alt="plus" />
@@ -41,30 +50,61 @@ function Main() {
           </div>
         </div>
         <div className="ideas__content mt-[32px] w-full">
-          <table className="ideas__content-table w-full border-separate">
+          <table className="ideas__content-table w-full border-separate bg-[#E1EDFF] rounded-[16px] overflow-hidden">
             <thead>
-              <tr className="bg-[#E1EDFF] py-[10px] px-[15px] text-left border-t-[1px] border-solid first:border-l-[1px] first:border-[#93A8F4] last:border-l-[1px] last:border-[#93A8F4]">
-                <th className="font-normal text-[18px] rounded-tl-lg">№</th>
-                <th className="font-normal text-[18px]">Дата</th>
-                <th className="font-normal text-[18px]">Теги</th>
-                <th className="font-normal text-[18px]">Содержание</th>
-                <th className="font-normal text-[18px]">Авторы</th>
-                <th className="font-normal text-[18px]">Статус</th>
-                <th className="font-normal text-[18px] rounded-tr-lg">Комментарий</th>
+              <tr className="bg-[#93A8F4] text-left">
+                <th className="font-normal py-[10px] px-[15px] text-[18px]">
+                  №
+                </th>
+                <th className="font-normal py-[10px] px-[15px] text-[18px]">
+                  Дата
+                </th>
+                <th className="font-normal py-[10px] px-[15px] text-[18px]">
+                  Теги
+                </th>
+                <th className="font-normal py-[10px] px-[15px] text-[18px]">
+                  Содержание
+                </th>
+                <th className="font-normal py-[10px] px-[15px] text-[18px]">
+                  Авторы
+                </th>
+                <th className="font-normal py-[10px] px-[15px] text-[18px]">
+                  Статус
+                </th>
+                <th className="font-normal py-[10px] px-[15px] text-[18px]">
+                  Комментарий
+                </th>
               </tr>
             </thead>
             <tbody>
               {Array(5)
                 .fill(null)
                 .map((row, index) => (
-                  <tr key={index} className="first:border-l-[1px] first:border-[#93A8F4] last:border-l-[1px] last:border-[#93A8F4] even:bg-[#cbdfff]">
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">1</td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">1</td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">1</td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">1</td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">1</td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">1</td>
-                    <td className="text-left border-none py-[10px] px-[15px] align-top">1</td>
+                  <tr
+                    key={index}
+                    className="first:border-l-[1px] first:border-[#93A8F4] last:border-l-[1px] last:border-[#93A8F4] even:bg-[#cbdfff]"
+                  >
+                    <td className="text-left border-none py-[10px] px-[15px] align-top">
+                      1
+                    </td>
+                    <td className="text-left border-none py-[10px] px-[15px] align-top">
+                      1
+                    </td>
+                    <td className="text-left border-none py-[10px] px-[15px] align-top">
+                      1
+                    </td>
+                    <td className="text-left border-none py-[10px] px-[15px] align-top">
+                      1
+                    </td>
+                    <td className="text-left border-none py-[10px] px-[15px] align-top">
+                      1
+                    </td>
+                    <td className="text-left border-none py-[10px] px-[15px] align-top">
+                      1
+                    </td>
+                    <td className="text-left border-none py-[10px] px-[15px] align-top">
+                      1
+                    </td>
                   </tr>
                 ))}
             </tbody>
