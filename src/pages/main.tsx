@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import arrow_down from "../assets/img/arrow_down.svg";
 import plus_adding from "../assets/img/adding_idea.svg";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllIdeas } from "../services/content";
 import { setIdeas } from "../redux/slices/ideaSlice";
 import { RootState } from "../redux/store";
+import { FormStatus, FormTag } from "../components/forms";
 
 function Main() {
   const dispatch = useDispatch();
@@ -42,24 +43,20 @@ function Main() {
         </h2>
         <div className="ideas__buttons flex px-[42px] justify-between">
           <div className="ideas__buttons-filter flex">
-            <button className="ideas__tags-btn relative rounded-[7px] border-[1px] border-solid border-[#B0C8ED] py-[5px] pl-[8px] pr-[42px] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] mr-[40px] hover:bg-[#acccff] duration-[200ms] ease-in-out">
-              Теги{" "}
-              <span className="arrow absolute top-[14px] right-[12px] w-[18px] h-[9px]">
-                <img src={arrow_down} className="w-full h-full" alt="arrow" />
-              </span>
-            </button>
-            <button className="ideas__authors-btn relative rounded-[7px] border-[1px] border-solid border-[#B0C8ED] py-[5px] pl-[8px] pr-[42px] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] mr-[40px] hover:bg-[#acccff] duration-[200ms] ease-in-out">
-              Авторы{" "}
-              <span className="arrow absolute top-[14px] right-[12px] w-[18px] h-[9px]">
-                <img src={arrow_down} className="w-full h-full" alt="arrow" />
-              </span>
-            </button>
-            <button className="ideas__status-btn relative rounded-[7px] border-[1px] border-solid border-[#B0C8ED] py-[5px] pl-[8px] pr-[42px] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] hover:bg-[#acccff] duration-[200ms] ease-in-out">
-              Статус{" "}
-              <span className="arrow absolute top-[14px] right-[12px] w-[18px] h-[9px]">
-                <img src={arrow_down} className="w-full h-full" alt="arrow" />
-              </span>
-            </button>
+            <div className="ideas__tags-block relative">
+              <FormTag/>
+            </div>
+            <div className="ideas__authors-block">
+              <button className="ideas__authors-btn relative rounded-[7px] border-[1px] border-solid border-[#B0C8ED] py-[5px] pl-[8px] pr-[42px] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] mr-[40px] hover:bg-[#acccff] duration-[200ms] ease-in-out">
+                Авторы{" "}
+                <span className="arrow absolute top-[14px] right-[12px] w-[18px] h-[9px]">
+                  <img src={arrow_down} className="w-full h-full" alt="arrow" />
+                </span>
+              </button>
+            </div>
+            <div className="ideas__status-block relative">
+              <FormStatus/>
+            </div>
           </div>
           <div className="ideas__buttons-add">
             <button
@@ -102,7 +99,7 @@ function Main() {
             </thead>
             <tbody>
               {allIdeas.map((idea, index) => (
-                <RowTable key={idea.id} {...idea} sequenceNumber={index}/>
+                <RowTable key={idea.id} {...idea} sequenceNumber={index} />
               ))}
             </tbody>
           </table>
