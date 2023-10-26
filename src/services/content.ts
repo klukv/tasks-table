@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_URL, POST_IDEA_URL } from "../utils/const";
 import { IIdea } from "../models/main";
 
-const $host = axios.create({
+export const $host = axios.create({
   baseURL: API_URL,
 });
 

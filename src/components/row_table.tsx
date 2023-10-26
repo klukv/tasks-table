@@ -1,7 +1,7 @@
 import React from "react";
 import { IIdea } from "../models/main";
 
-const Row_table:React.FC<IIdea> = ({number, date, tags, text, authors, state, comments}) => {
+const Row_table:React.FC<IIdea> = ({ date, tags, text, state, comments}) => {
   return (
     <tr
       className="first:border-l-[1px] first:border-[#93A8F4] last:border-l-[1px] last:border-[#93A8F4] even:bg-[#cbdfff]"

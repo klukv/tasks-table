@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
 import { stateDropdown } from "../utils/const";
-import { IDropdownSelectItem } from "../models/main";
+import { IDropdownSelectItem, IIdea } from "../models/main";
 
 import close_btn from "../assets/img/close_btn.svg";
 import attach_btn from "../assets/img/attach_btn.svg";
+import { createIdea } from "../services/content";
 
 function Create_Task() {
   const navigate = useNavigate();
@@ -49,7 +50,16 @@ function Create_Task() {
     if (!tags || !title || !description) {
       console.log("This is bad");
     } else {
-      console.log("This is good");
+      //формируем объект идеи
+      const newIdea: IIdea = {
+        date: new Date().toDateString(),
+        tags: tags,
+        text: description,
+        state: 'Анализ',
+        comments: 'Комментария нет',
+      };
+      //передаем данные в базу данных
+      createIdea('1', newIdea).then(data => clickLink('/'));
     }
   };
 
@@ -77,7 +87,7 @@ function Create_Task() {
               placeholder=""
               onSelect={onSelect}
             />
-            {(!tags && tagDirty) && (
+            {!tags && tagDirty && (
               <div className="modal__error text-[red]">
                 Заполните данное поле
               </div>
@@ -95,7 +105,7 @@ function Create_Task() {
               onBlur={(event) => blurHandler(event)}
               onChange={(event) => changeInput(event.target.value, "title")}
             />
-            {(!title && titleDirty) && (
+            {!title && titleDirty && (
               <div className="modal__error text-[red]">
                 Заполните данное поле
               </div>
@@ -112,7 +122,7 @@ function Create_Task() {
                 changeInput(event.target.value, "description")
               }
             />
-            {(!description && descriptionDirty) && (
+            {!description && descriptionDirty && (
               <div className="modal__error text-[red]">
                 Заполните данное поле
               </div>

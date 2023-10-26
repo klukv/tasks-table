@@ -16,6 +16,14 @@ export const stateDropdown = {
   ],
 };
 
+//изначальные значения сообщения запросов
+export const initialValuesMessage = {
+  message: "",
+  success: false
+}
+
 //пути для запроса на бекенд
 export const API_URL = "http://localhost:8080";
+export const BASE_API_AUTH_URL = "/api/auth"
+export const LOGIN_URL = "/signin";
 export const POST_IDEA_URL = "/addNewIdea";
