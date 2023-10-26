@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import arrow_down from "../assets/img/arrow_down.svg";
 import plus_adding from "../assets/img/adding_idea.svg";
 import { useNavigate } from "react-router-dom";
-import Row_table from "../components/row_table";
+import RowTable from "../components/rowTable";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllIdeas } from "../services/content";
+import { setIdeas } from "../redux/slices/ideaSlice";
+import { RootState } from "../redux/store";
 
 function Main() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userInfo, allIdeas } = useSelector((state: RootState) => {
+    return {
+      userInfo: state.userSlice.user,
+      allIdeas: state.ideaSlice.ideasList,
+    };
+  });
 
   const clickLink = (route: string) => {
     navigate(route);
   };
+
+  useEffect(() => {
+    if (userInfo.id && userInfo.id !== 0) {
+    }
+    getAllIdeas().then((data) => {
+      const newData = data.map((idea) => {
+        idea.author.password = "Тут нет никакого пароля:)";
+        return idea;
+      });
+      dispatch(setIdeas(newData));
+    });
+  }, [userInfo.id]);
 
   return (
     <main className="ideas">
@@ -41,7 +64,7 @@ function Main() {
           <div className="ideas__buttons-add">
             <button
               className="ideas__adding-btn relative rounded-[7px] py-[8px] pr-[12px] pl-[45px] bg-[#E1EDFF] border-[1px] border-solid border-[#AABBF6] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] hover:bg-[#95a9f1] duration-[200ms] ease-in-out"
-              onClick={() => clickLink('create-idea')}
+              onClick={() => clickLink("create-idea")}
             >
               Добавить идею{" "}
               <span className="plus absolute top-[13px] left-[16px] w-[15px] h-[15px]">
@@ -78,12 +101,9 @@ function Main() {
               </tr>
             </thead>
             <tbody>
-              {Array(5)
-                .fill(null)
-                .map((row, index) => (
-                  //поменять key на id
-                  <Row_table key={index} {...row}/>
-                ))}
+              {allIdeas.map((idea, index) => (
+                <RowTable key={idea.id} {...idea} sequenceNumber={index}/>
+              ))}
             </tbody>
           </table>
         </div>

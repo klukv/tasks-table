@@ -1,12 +1,13 @@
-import axios from "axios";
-import { API_URL, POST_IDEA_URL } from "../utils/const";
-import { IIdea } from "../models/main";
+import { GET_ALL_IDEAS, POST_IDEA_URL } from "../utils/const";
+import { IAllIdeas, IIdea } from "../models/main";
+import { $authHost } from "./authService";
 
-export const $host = axios.create({
-  baseURL: API_URL,
-});
+export const createIdea = async (userId: number, idea: IIdea) => {
+  const { data } = await $authHost.post(POST_IDEA_URL + "/" + userId, idea);
+  return data;
+};
 
-export const createIdea = async (userId: string, idea: IIdea) => {
-  const { data } = await $host.post(POST_IDEA_URL + "/" + userId, idea);
+export const getAllIdeas = async (): Promise<IAllIdeas[]> => {
+  const { data } = await $authHost.get<IAllIdeas[]>(GET_ALL_IDEAS);
   return data;
 };

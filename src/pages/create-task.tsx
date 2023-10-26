@@ -7,6 +7,8 @@ import { IDropdownSelectItem, IIdea } from "../models/main";
 import close_btn from "../assets/img/close_btn.svg";
 import attach_btn from "../assets/img/attach_btn.svg";
 import { createIdea } from "../services/content";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 function Create_Task() {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ function Create_Task() {
   const [titleDirty, setTitleDirty] = useState(false);
   const [description, setDescription] = useState("");
   const [descriptionDirty, setDescriptionDirty] = useState(false);
+  const userInfo = useSelector((state: RootState) => state.userSlice.user);
 
   const clickLink = (route: string) => {
     navigate(route);
@@ -47,19 +50,19 @@ function Create_Task() {
   // Отправка данных из формы в базу данных
   const submitInfoIdea = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
-    if (!tags || !title || !description) {
+    if (!tags || !title || !description || !userInfo.id) {
       console.log("This is bad");
     } else {
       //формируем объект идеи
       const newIdea: IIdea = {
-        date: new Date().toDateString(),
+        date: new Date().toLocaleDateString("ru"),
         tags: tags,
         text: description,
-        state: 'Анализ',
-        comments: 'Комментария нет',
+        state: "Анализ",
+        comments: "Комментария нет",
       };
       //передаем данные в базу данных
-      createIdea('1', newIdea).then(data => clickLink('/'));
+      createIdea(userInfo.id, newIdea).then((data) => clickLink("/"));
     }
   };
 

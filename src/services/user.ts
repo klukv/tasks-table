@@ -1,6 +1,6 @@
-import { ISignin } from "../models/main";
+import { ISignin } from "../models/user";
 import { BASE_API_AUTH_URL, LOGIN_URL } from "../utils/const";
-import { $host } from "./content";
+import { $host } from "./authService";
 
 
 export const signIn = async (username: string, password: string): Promise<ISignin> => {

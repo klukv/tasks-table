@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IIdea } from "../../models/main";
+import { IAllIdeas, IIdea } from "../../models/main";
 
 export interface ideaState {
-  ideasList: IIdea[];
+  ideasList: IAllIdeas[];
 }
 
 const initialState: ideaState = {
@@ -14,7 +14,7 @@ export const ideaSlice = createSlice({
   name: "ideas",
   initialState,
   reducers: {
-    setIdeas: (state, action: PayloadAction<IIdea[]>) => {
+    setIdeas: (state, action: PayloadAction<IAllIdeas[]>) => {
       state.ideasList = action.payload;
     },
   },

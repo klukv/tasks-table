@@ -27,3 +27,4 @@ export const API_URL = "http://localhost:8080";
 export const BASE_API_AUTH_URL = "/api/auth"
 export const LOGIN_URL = "/signin";
 export const POST_IDEA_URL = "/addNewIdea";
+export const GET_ALL_IDEAS = "/getAllIdea";
