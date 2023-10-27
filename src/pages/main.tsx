@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import plus_adding from "../assets/img/adding_idea.svg";
 import { useNavigate } from "react-router-dom";
 import RowTable from "../components/rowTable";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllIdeas } from "../services/content";
 import { setIdeas } from "../redux/slices/ideaSlice";
 import { RootState } from "../redux/store";
 import { FormAuthor, FormStatus, FormTag } from "../components/forms";
+import ModalEdit from "../components/modalEdit";
 
 function Main() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function Main() {
   }, [userInfo.id]);
 
   return (
+    <>
     <main className="ideas">
       <div className="cotainer max-w-[1750px] mx-auto max-2xl:max-w-[1336px]">
         <h2 className="ideas__title mt-[20px] text-[20px] mb-[10px]">
@@ -96,6 +98,8 @@ function Main() {
         </div>
       </div>
     </main>
+    <ModalEdit/>
+    </>
   );
 }
 

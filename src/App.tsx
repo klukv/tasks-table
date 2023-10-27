@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { AUTH_URL, CREATE_IDEA_URL, MAIN_URL } from "./utils/const";
 import Main from "./pages/main";
@@ -8,9 +8,22 @@ import Create_Task from "./pages/create-task";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 
+type TPopupContext = {
+  activePopup: boolean;
+  setActivePopup: (value: boolean) => void;
+};
+
+const dvContextPopup = {
+  activePopup: false,
+  setActivePopup: () => false,
+};
+
+export const PopupContext = createContext<TPopupContext>(dvContextPopup);
+
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [activePopup, setActivePopup] = useState<boolean>(false);
   const isAuthUser = useSelector(
     (state: RootState) => state.userSlice.user.isAuth
   );
@@ -23,17 +36,19 @@ function App() {
 
   return (
     <div className="wrapper">
-      {!location.pathname.includes("signin") ? <Header /> : ""}
-      <Routes>
-        {isAuthUser ? (
-          <>
-            <Route path={MAIN_URL} element={<Main />} />
-            <Route path={CREATE_IDEA_URL} element={<Create_Task />} />
-          </>
-        ) : (
-          <Route key="login-key" path="*" element={<Auth />} />
-        )}
-      </Routes>
+      <PopupContext.Provider value={{ activePopup, setActivePopup }}>
+        {!location.pathname.includes("signin") ? <Header /> : ""}
+        <Routes>
+          {isAuthUser ? (
+            <>
+              <Route path={MAIN_URL} element={<Main />} />
+              <Route path={CREATE_IDEA_URL} element={<Create_Task />} />
+            </>
+          ) : (
+            <Route key="login-key" path="*" element={<Auth />} />
+          )}
+        </Routes>
+      </PopupContext.Provider>
     </div>
   );
 }
