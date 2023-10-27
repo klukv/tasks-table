@@ -35,10 +35,10 @@ function Auth() {
             role = "Пользователь";
             break;
           case "ROLE_MODERATOR":
-            role = "Модератор";
+            role = "Эксперт";
             break;
           case "ROLE_ADMIN":
-            role = "Администратор";
+            role = "Руководитель";
             break;
         }
 
@@ -89,6 +89,7 @@ function Auth() {
                 className="auth__info-password__text rounded-[5px] px-[5px] py-[2px] outline-none"
                 onChange={(event) => setPassword(event.target.value)}
                 value={password}
+                autoComplete="on"
               />
             </div>
             <div className="auth__info-button text-center mb-[15px]">

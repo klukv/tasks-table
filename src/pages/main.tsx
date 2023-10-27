@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from "react";
-import arrow_down from "../assets/img/arrow_down.svg";
+import React, { useEffect } from "react";
 import plus_adding from "../assets/img/adding_idea.svg";
 import { useNavigate } from "react-router-dom";
 import RowTable from "../components/rowTable";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllIdeas } from "../services/content";
 import { setIdeas } from "../redux/slices/ideaSlice";
 import { RootState } from "../redux/store";
-import { FormStatus, FormTag } from "../components/forms";
+import { FormAuthor, FormStatus, FormTag } from "../components/forms";
 
 function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userInfo, allIdeas } = useSelector((state: RootState) => {
-    return {
-      userInfo: state.userSlice.user,
-      allIdeas: state.ideaSlice.ideasList,
-    };
-  });
+  const userInfo = useSelector((state:RootState) => state.userSlice.user);
+  const allIdeas = useSelector((state:RootState) => state.ideaSlice.ideasList);
 
   const clickLink = (route: string) => {
     navigate(route);
@@ -44,18 +39,13 @@ function Main() {
         <div className="ideas__buttons flex px-[42px] justify-between">
           <div className="ideas__buttons-filter flex">
             <div className="ideas__tags-block relative">
-              <FormTag/>
+              <FormTag />
             </div>
-            <div className="ideas__authors-block">
-              <button className="ideas__authors-btn relative rounded-[7px] border-[1px] border-solid border-[#B0C8ED] py-[5px] pl-[8px] pr-[42px] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] mr-[40px] hover:bg-[#acccff] duration-[200ms] ease-in-out">
-                Авторы{" "}
-                <span className="arrow absolute top-[14px] right-[12px] w-[18px] h-[9px]">
-                  <img src={arrow_down} className="w-full h-full" alt="arrow" />
-                </span>
-              </button>
+            <div className="ideas__authors-block relative">
+              <FormAuthor />
             </div>
             <div className="ideas__status-block relative">
-              <FormStatus/>
+              <FormStatus />
             </div>
           </div>
           <div className="ideas__buttons-add">

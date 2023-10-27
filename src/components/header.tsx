@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import logo from "../assets/img/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { logOut } from "../redux/slices/userSlice";
 import { AUTH_URL } from "../utils/const";
@@ -9,11 +9,7 @@ import { AUTH_URL } from "../utils/const";
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userInfo } = useSelector((state: RootState) => {
-    return {
-      userInfo: state.userSlice.user,
-    };
-  });
+  const userInfo = useSelector((state: RootState) => state.userSlice.user);
 
   const clickLink = (route: string) => {
     navigate(route);
