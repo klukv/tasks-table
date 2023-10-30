@@ -10,7 +10,7 @@ function FormAuthor() {
   //Кастомный хук для отслеживания клика в области выпадающего списка
   useClickOutside(refStatusMenu, setActivePopup, activePopup);
   return (
-    <div className="filter-author">
+    <div className="filter-author" ref={refStatusMenu}>
       <button
         className="ideas__authors-btn relative rounded-[7px] border-[1px] border-solid border-[#B0C8ED] py-[5px] pl-[8px] pr-[42px] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] mr-[40px] hover:bg-[#acccff] duration-[200ms] ease-in-out"
         onClick={() => setActivePopup(!activePopup)}

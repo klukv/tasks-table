@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../services/user";
-import { MAIN_URL, initialValuesMessage } from "../utils/const";
+import { MAIN_URL, ROLES, initialValuesMessage } from "../utils/const";
 import { useDispatch } from "react-redux";
 import { saveUser, setIsAuth } from "../redux/slices/userSlice";
 
@@ -32,13 +32,13 @@ function Auth() {
 
         switch (data.roles[0]) {
           case "ROLE_USER":
-            role = "Пользователь";
+            role = ROLES.ROLE_USER;
             break;
           case "ROLE_MODERATOR":
-            role = "Эксперт";
+            role = ROLES.ROLE_EXPERT;
             break;
           case "ROLE_ADMIN":
-            role = "Руководитель";
+            role = ROLES.ROLE_BOSS;
             break;
         }
 

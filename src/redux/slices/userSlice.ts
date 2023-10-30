@@ -4,7 +4,7 @@ type User = {
   id: number;
   username: string;
   email: string;
-  roles: string[];
+  roles: string;
   isAuth: boolean;
 };
 
@@ -19,7 +19,7 @@ const initialState: userState = {
     id: 0,
     username: "",
     email: "",
-    roles: [],
+    roles: "",
     isAuth: false,
   },
   allUsers: [],
@@ -47,7 +47,7 @@ export const userSlice = createSlice({
         id: 0,
         username: "",
         email: "",
-        roles: [],
+        roles: "",
         isAuth: false,
       };
       state.allUsers = [];

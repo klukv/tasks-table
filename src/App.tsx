@@ -10,12 +10,16 @@ import { RootState } from "./redux/store";
 
 type TPopupContext = {
   activePopup: boolean;
+  typeModal: string;
   setActivePopup: (value: boolean) => void;
+  setTypeModal: (value: string) => void;
 };
 
 const dvContextPopup = {
   activePopup: false,
+  typeModal: "",
   setActivePopup: () => false,
+  setTypeModal: () => "",
 };
 
 export const PopupContext = createContext<TPopupContext>(dvContextPopup);
@@ -24,6 +28,7 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [activePopup, setActivePopup] = useState<boolean>(false);
+  const [typeModal, setTypeModal] = useState<string>("");
   const isAuthUser = useSelector(
     (state: RootState) => state.userSlice.user.isAuth
   );
@@ -36,7 +41,9 @@ function App() {
 
   return (
     <div className="wrapper">
-      <PopupContext.Provider value={{ activePopup, setActivePopup }}>
+      <PopupContext.Provider
+        value={{ activePopup, typeModal, setActivePopup, setTypeModal }}
+      >
         {!location.pathname.includes("signin") ? <Header /> : ""}
         <Routes>
           {isAuthUser ? (

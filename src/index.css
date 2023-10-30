@@ -7,29 +7,33 @@ body {
 }
 
 /* выпадающий список тегов */
-.search-wrapper{
+.search-wrapper {
   padding-left: 48px !important;
-  background-color: #E1EDFF;
+  background-color: #e1edff;
   border-radius: 5px;
-  border: 1px solid #B0C8ED;
+  border: 1px solid #b0c8ed;
   padding: 0px;
   padding-top: 3px;
 }
-.searchBox{
+.searchBox {
   height: 30px;
 }
-.chip{
-  background-color: #93A8F4;
+.chip {
+  background-color: #93a8f4;
 }
 
 /* полоса прокрутки */
-.optionListContainer ::-webkit-scrollbar {
-  width: 6px;               /* ширина scrollbar */
+.optionListContainer,
+::-webkit-scrollbar,
+.modal-window__input::-webkit-scrollbar {
+  width: 6px; /* ширина scrollbar */
 }
-.optionListContainer ::-webkit-scrollbar-track {
-  background: #FFF;        /* цвет дорожки */
+.optionListContainer ::-webkit-scrollbar-track,
+.modal-window__input::-webkit-scrollbar-track {
+  background: #dde9fc; /* цвет дорожки */
 }
-.optionListContainer ::-webkit-scrollbar-thumb {
-  background-color: #80B6FF;    /* цвет плашки */
-  border-radius: 20px;       /* закругления плашки */
+.optionListContainer ::-webkit-scrollbar-thumb,
+.modal-window__input::-webkit-scrollbar-thumb {
+  background-color: #80b6ff; /* цвет плашки */
+  border-radius: 20px; /* закругления плашки */
 }
