@@ -14,6 +14,7 @@ function Main() {
   const navigate = useNavigate();
   const userInfo = useSelector((state:RootState) => state.userSlice.user);
   const allIdeas = useSelector((state:RootState) => state.ideaSlice.ideasList);
+  const isChangeContent = useSelector((state:RootState) => state.ideaSlice.changeContent);
 
   const clickLink = (route: string) => {
     navigate(route);
@@ -29,7 +30,7 @@ function Main() {
       });
       dispatch(setIdeas(newData));
     });
-  }, [userInfo.id]);
+  }, [userInfo.id, isChangeContent]);
 
   return (
     <>

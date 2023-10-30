@@ -1,11 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { PopupContext } from "../App";
+import { TYPE_STATUS, VARIANTS_STATUS } from "../utils/const";
+import { changeStatus } from "../services/content";
 
 import closeBtn from "../assets/img/close_btn.svg";
-import { TYPE_STATUS } from "../utils/const";
+import { useDispatch } from "react-redux";
+import { setChangeStatus } from "../redux/slices/ideaSlice";
 
 function ModalEdit() {
+  const dispatch = useDispatch();
   const contextPopup = useContext(PopupContext);
+  const [changeContent, setChangeContent] = useState("");
+
+  const postChangeInfo = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (contextPopup.typeModal === TYPE_STATUS && changeContent !== "") {
+      let currentStatus = "";
+      switch (changeContent) {
+        case VARIANTS_STATUS.ANALYSIS:
+          currentStatus = "Анализ";
+          break;
+        case VARIANTS_STATUS.ACCEPTED:
+          currentStatus = "Принято";
+          break;
+        case VARIANTS_STATUS.CANCELED:
+          currentStatus = "Отклонен";
+          break;
+        case VARIANTS_STATUS.POSTPONED:
+          currentStatus = "Отложен";
+          break;
+      }
+      //отправляем измененные данные в базу данных (бекенд)
+      changeStatus(contextPopup.idSelectIdea, currentStatus).then((data) => {
+        //говорим, что данные были отредактированы и таблицу нужно перерендерить
+        dispatch(setChangeStatus(true));
+        contextPopup.setActivePopup(!contextPopup.activePopup);
+      });
+    }
+  };
 
   return (
     <div
@@ -32,10 +64,12 @@ function ModalEdit() {
           <h2 className="modal-window__title text-center mb-[20px] text-[20px]">
             Редактирование данных
           </h2>
-          <form className="modal-window__content">
+          <form className="modal-window__content" onSubmit={postChangeInfo}>
             {contextPopup.typeModal === TYPE_STATUS ? (
               <select
                 name=""
+                onChange={(event) => setChangeContent(event.target.value)}
+                value={changeContent}
                 className="modal-window__choice w-full p-[5px] rounded-[6px] outline-none"
               >
                 <option
@@ -67,12 +101,17 @@ function ModalEdit() {
               <div className="modal-window__comment">
                 <textarea
                   className="modal-window__input w-full p-[8px] bg-[#E1EDFF] outline-none border-[1px] border-[#B0C8ED] rounded-[8px] min-h-[35px]"
+                  onChange={(event) => setChangeContent(event.target.value)}
+                  value={changeContent}
                   placeholder="Введите комментарий"
                 ></textarea>
               </div>
             )}
             <div className="modal-window__button text-center">
-              <button className="filter-author__btn py-[8px] px-[20px] mt-[25px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out">
+              <button
+                className="filter-author__btn py-[8px] px-[20px] mt-[25px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out"
+                type="submit"
+              >
                 Применить
               </button>
             </div>

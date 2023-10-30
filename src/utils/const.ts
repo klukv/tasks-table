@@ -15,6 +15,14 @@ export const stateDropdown = {
   ],
 };
 
+//список возможных статусов
+export enum VARIANTS_STATUS {
+  ANALYSIS = "analysis",
+  ACCEPTED = "accepted",
+  CANCELED = "canceled",
+  POSTPONED = "postponed",
+}
+
 //изначальные значения сообщения запросов
 export const initialValuesMessage = {
   message: "",
@@ -23,9 +31,9 @@ export const initialValuesMessage = {
 
 //значения ролей пользователей
 export enum ROLES {
-  ROLE_USER = 'Пользователь',
-  ROLE_EXPERT = 'Эксперт',
-  ROLE_BOSS = 'Руководитель' // :)
+  ROLE_USER = "Пользователь",
+  ROLE_EXPERT = "Эксперт",
+  ROLE_BOSS = "Руководитель", // :)
 }
 
 //типы модального окна (редактирование статуса или комментария)
@@ -37,4 +45,7 @@ export const API_URL = "http://localhost:8080";
 export const BASE_API_AUTH_URL = "/api/auth";
 export const LOGIN_URL = "/signin";
 export const POST_IDEA_URL = "/addNewIdea";
+export const DELETE_IDEA_URL = "/deleteIdea";
 export const GET_ALL_IDEAS = "/getAllIdea";
+export const CHANGE_COMMENT = "/changeComment";
+export const CHANGE_STATUS = "/changeStatus";

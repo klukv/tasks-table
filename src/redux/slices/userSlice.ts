@@ -10,8 +10,6 @@ type User = {
 
 export interface userState {
   user: User;
-  allUsers: User[];
-  isChangeUsers: boolean;
 }
 
 const initialState: userState = {
@@ -21,9 +19,7 @@ const initialState: userState = {
     email: "",
     roles: "",
     isAuth: false,
-  },
-  allUsers: [],
-  isChangeUsers: true,
+  }
 };
 
 export const userSlice = createSlice({
@@ -36,12 +32,6 @@ export const userSlice = createSlice({
     setIsAuth: (state, action: PayloadAction<boolean>) => {
       state.user.isAuth = action.payload;
     },
-    setAllUsers: (state, action) => {
-      state.allUsers = action.payload;
-    },
-    setStateChange: (state, action) => {
-      state.isChangeUsers = action.payload;
-    },
     logOut: (state) => {
       state.user = {
         id: 0,
@@ -50,13 +40,11 @@ export const userSlice = createSlice({
         roles: "",
         isAuth: false,
       };
-      state.allUsers = [];
-      state.isChangeUsers = false;
     },
   },
 });
 
-export const { saveUser, setIsAuth, setAllUsers, setStateChange, logOut } =
+export const { saveUser, setIsAuth, logOut } =
   userSlice.actions;
 
 export default userSlice.reducer;

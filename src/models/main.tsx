@@ -1,5 +1,4 @@
 import { IUser } from "./user";
-
 export interface IIdea {
   date: string;
   tags: string;
@@ -22,4 +21,9 @@ export interface ITextFormCreate {
 export interface IAllIdeas extends IIdea {
   id:number,
   author: IUser
+}
+
+export interface IChangeContent {
+  isChangeStatus: boolean,
+  isChangeComment: boolean
 }

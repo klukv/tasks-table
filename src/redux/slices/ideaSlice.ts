@@ -1,13 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IAllIdeas, IIdea } from "../../models/main";
+import { IAllIdeas, IChangeContent,  } from "../../models/main";
 
 export interface ideaState {
   ideasList: IAllIdeas[];
+  changeContent: IChangeContent;
 }
 
 const initialState: ideaState = {
   ideasList: [],
+  changeContent: {
+    isChangeStatus: false ,
+    isChangeComment: false
+  },
 };
 
 export const ideaSlice = createSlice({
@@ -17,10 +22,16 @@ export const ideaSlice = createSlice({
     setIdeas: (state, action: PayloadAction<IAllIdeas[]>) => {
       state.ideasList = action.payload;
     },
+    setChangeComment: (state, action: PayloadAction<boolean>) => {
+      state.changeContent.isChangeStatus = action.payload;
+    },
+    setChangeStatus: (state, action: PayloadAction<boolean>) => {
+      state.changeContent.isChangeComment = action.payload;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setIdeas } = ideaSlice.actions;
+export const { setIdeas, setChangeComment, setChangeStatus } = ideaSlice.actions;
 
 export default ideaSlice.reducer;

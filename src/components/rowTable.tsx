@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const RowTable: React.FC<IAllIdeas> = ({
+  id,
   date,
   tags,
   text,
@@ -20,6 +21,8 @@ const RowTable: React.FC<IAllIdeas> = ({
   const userInfo = useSelector((state: RootState) => state.userSlice.user);
 
   const changeStatusModal = (type: string, value: boolean) => {
+    //устанавливаем id идеи, которую пользователь хочет изменить
+    contextPopup.setIdeaId(id);
     contextPopup.setTypeModal(type);
     contextPopup.setActivePopup(value);
   };
@@ -29,19 +32,19 @@ const RowTable: React.FC<IAllIdeas> = ({
       <td className="number text-left border-none py-[10px] px-[15px] align-top max-w-[100px] break-words">
         {sequenceNumber}
       </td>
-      <td className="date text-left border-none py-[10px] px-[15px] align-top max-w-[100px] break-all">
+      <td className="date text-left border-none py-[10px] px-[15px] align-top w-[150px] break-all">
         {date}
       </td>
-      <td className="tags text-left border-none py-[10px] px-[15px] align-top max-w-[300px] break-all">
+      <td className="tags text-left border-none py-[10px] px-[15px] align-top w-[250px] break-all">
         {tags}
       </td>
-      <td className="description text-left border-none py-[10px] px-[15px] align-top max-w-[550px] break-all">
+      <td className="description text-left border-none py-[10px] px-[15px] align-top w-[550px] break-all">
         {text}
       </td>
-      <td className="author text-left border-none py-[10px] px-[15px] align-top max-w-[250px] break-all">
+      <td className="author text-left border-none py-[10px] px-[15px] align-top w-[150px] break-all">
         {author.username}
       </td>
-      <td className="status relative text-left border-none py-[10px] px-[15px] align-top max-w-[250px] break-all">
+      <td className="status relative text-left border-none py-[10px] px-[15px] align-top w-[150px] break-all">
         {state}
         {userInfo.roles === ROLES.ROLE_BOSS && (
           <div className="status__button-edit absolute top-[14px] right-[9px]">

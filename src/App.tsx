@@ -9,17 +9,21 @@ import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 
 type TPopupContext = {
+  idSelectIdea: number;
   activePopup: boolean;
   typeModal: string;
   setActivePopup: (value: boolean) => void;
   setTypeModal: (value: string) => void;
+  setIdeaId: (value: number) => void;
 };
 
 const dvContextPopup = {
+  idSelectIdea: 0,
   activePopup: false,
   typeModal: "",
   setActivePopup: () => false,
   setTypeModal: () => "",
+  setIdeaId: () => 0,
 };
 
 export const PopupContext = createContext<TPopupContext>(dvContextPopup);
@@ -29,6 +33,7 @@ function App() {
   const navigate = useNavigate();
   const [activePopup, setActivePopup] = useState<boolean>(false);
   const [typeModal, setTypeModal] = useState<string>("");
+  const [idSelectIdea, setIdeaId] = useState<number>(0);
   const isAuthUser = useSelector(
     (state: RootState) => state.userSlice.user.isAuth
   );
@@ -42,7 +47,14 @@ function App() {
   return (
     <div className="wrapper">
       <PopupContext.Provider
-        value={{ activePopup, typeModal, setActivePopup, setTypeModal }}
+        value={{
+          idSelectIdea,
+          activePopup,
+          typeModal,
+          setActivePopup,
+          setTypeModal,
+          setIdeaId,
+        }}
       >
         {!location.pathname.includes("signin") ? <Header /> : ""}
         <Routes>
