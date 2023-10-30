@@ -8,11 +8,10 @@ body {
 
 /* выпадающий список тегов */
 .search-wrapper {
-  padding-left: 48px !important;
   background-color: #e1edff;
   border-radius: 5px;
   border: 1px solid #b0c8ed;
-  padding: 0px;
+  padding: 0px 0px 0px 48px !important;
   padding-top: 3px;
 }
 .searchBox {
@@ -23,18 +22,16 @@ body {
 }
 
 /* полоса прокрутки */
-.optionListContainer,
-::-webkit-scrollbar,
+.optionContainer::-webkit-scrollbar,
 .modal-window__input::-webkit-scrollbar {
   width: 6px; /* ширина scrollbar */
 }
-.optionListContainer ::-webkit-scrollbar-track,
+.optionContainer::-webkit-scrollbar-track,
 .modal-window__input::-webkit-scrollbar-track {
   background: #dde9fc; /* цвет дорожки */
 }
-.optionListContainer ::-webkit-scrollbar-thumb,
+.optionContainer::-webkit-scrollbar-thumb,
 .modal-window__input::-webkit-scrollbar-thumb {
   background-color: #80b6ff; /* цвет плашки */
   border-radius: 20px; /* закругления плашки */
 }
-

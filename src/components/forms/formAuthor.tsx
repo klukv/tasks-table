@@ -1,14 +1,26 @@
 import React, { useRef, useState } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
+import useFilter from "../../hooks/useFilter";
 
 import arrow_down from "../../assets/img/arrow_down.svg";
-import useClickOutside from "../../hooks/useClickOutside";
+import { TYPE_FILTERS } from "../../utils/const";
+import { useDispatch } from "react-redux";
+import { setIdeas } from "../../redux/slices/ideaSlice";
 
 function FormAuthor() {
+  const dispatch = useDispatch();
   const refStatusMenu = useRef<HTMLDivElement>(null);
   const [activePopup, setActivePopup] = useState(false);
+  const [name, setName] = useState("");
+  //фильтрованные данные по автору
+  const filterIdeas = useFilter(name, TYPE_FILTERS.TYPE_AUTHOR);
 
   //Кастомный хук для отслеживания клика в области выпадающего списка
   useClickOutside(refStatusMenu, setActivePopup, activePopup);
+
+  const clickButtonAccept = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
   return (
     <div className="filter-author" ref={refStatusMenu}>
       <button
@@ -21,6 +33,7 @@ function FormAuthor() {
         </span>
       </button>
       <form
+        onSubmit={clickButtonAccept}
         className={
           !activePopup
             ? "filter-author__form absolute invisible opacity-0 duration-[200ms] ease-in-out top-[46px] left-[-50px] min-w-[300px] bg-[#dde9fc] border-[1px] border-solid border-[#80B6FF] rounded-[10px]"
@@ -29,10 +42,19 @@ function FormAuthor() {
       >
         <div className="filter-author__inner py-[30px] px-[20px]">
           <div className="filter-author__search w-full">
-            <input type="text" className="filter-author__search-input w-full p-[8px] outline-none rounded-[8px]" placeholder="Искать автора..." />
+            <input
+              type="text"
+              className="filter-author__search-input w-full p-[8px] outline-none rounded-[8px]"
+              onChange={(event) => setName(event.target.value)}
+              value={name}
+              placeholder="Искать автора..."
+            />
           </div>
           <div className="filter-author__button flex justify-center">
-            <button className="filter-author__btn py-[8px] px-[20px] mt-[25px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out">
+            <button
+              className="filter-author__btn py-[8px] px-[20px] mt-[25px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out"
+              type="submit"
+            >
               Применить
             </button>
           </div>

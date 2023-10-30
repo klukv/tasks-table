@@ -36,6 +36,13 @@ export enum ROLES {
   ROLE_BOSS = "Руководитель", // :)
 }
 
+//значения типов фильтрации
+export enum TYPE_FILTERS {
+  TYPE_TAGS = "tags",
+  TYPE_AUTHOR = "author",
+  TYPE_STATUS = "status",
+}
+
 //типы модального окна (редактирование статуса или комментария)
 export const TYPE_STATUS = "status";
 export const TYPE_COMMENT = "comment";

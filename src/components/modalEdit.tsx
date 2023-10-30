@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { PopupContext } from "../App";
-import { TYPE_STATUS, VARIANTS_STATUS } from "../utils/const";
-import { changeStatus } from "../services/content";
+import { TYPE_COMMENT, TYPE_STATUS, VARIANTS_STATUS } from "../utils/const";
+import { changeComment, changeStatus } from "../services/content";
 
 import closeBtn from "../assets/img/close_btn.svg";
 import { useDispatch } from "react-redux";
-import { setChangeStatus } from "../redux/slices/ideaSlice";
+import { setChangeComment, setChangeStatus } from "../redux/slices/ideaSlice";
 
 function ModalEdit() {
   const dispatch = useDispatch();
@@ -36,6 +36,12 @@ function ModalEdit() {
         dispatch(setChangeStatus(true));
         contextPopup.setActivePopup(!contextPopup.activePopup);
       });
+    }else if(contextPopup.typeModal === TYPE_COMMENT && changeContent !== ""){
+      //тоже самое, что и при изменении статуса
+      changeComment(contextPopup.idSelectIdea, changeContent).then(data => {
+        dispatch(setChangeComment(true));
+        contextPopup.setActivePopup(!contextPopup.activePopup);
+      })
     }
   };
 
