@@ -1,25 +1,23 @@
 import React, { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
-import useFilter from "../../hooks/useFilter";
 
 import arrow_down from "../../assets/img/arrow_down.svg";
-import { TYPE_FILTERS } from "../../utils/const";
 import { useDispatch } from "react-redux";
-import { setIdeas } from "../../redux/slices/ideaSlice";
+import { addAuthor } from "../../redux/slices/filter";
 
 function FormAuthor() {
   const dispatch = useDispatch();
   const refStatusMenu = useRef<HTMLDivElement>(null);
   const [activePopup, setActivePopup] = useState(false);
   const [name, setName] = useState("");
-  //фильтрованные данные по автору
-  const filterIdeas = useFilter(name, TYPE_FILTERS.TYPE_AUTHOR);
 
   //Кастомный хук для отслеживания клика в области выпадающего списка
   useClickOutside(refStatusMenu, setActivePopup, activePopup);
 
   const clickButtonAccept = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+      dispatch(addAuthor(name));
+
   };
   return (
     <div className="filter-author" ref={refStatusMenu}>

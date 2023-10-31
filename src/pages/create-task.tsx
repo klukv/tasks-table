@@ -58,11 +58,12 @@ function Create_Task() {
         date: new Date().toLocaleDateString("ru"),
         tags: tags,
         text: description,
+        author: userInfo.username,
         state: "Анализ",
         comments: "Комментария нет",
       };
       //передаем данные в базу данных
-      createIdea(userInfo.id, newIdea).then((data) => clickLink("/"));
+      createIdea(newIdea).then((data) => clickLink("/"));
     }
   };
 

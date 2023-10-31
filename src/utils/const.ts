@@ -15,6 +15,14 @@ export const stateDropdown = {
   ],
 };
 
+//список статусов для отображения в выпадающем списке
+export const statusList = [
+  { name: "Анализ", id: 0 },
+  { name: "Принято", id: 1 },
+  { name: "Отклонено", id: 2 },
+  { name: "Отложено", id: 3 },
+];
+
 //список возможных статусов
 export enum VARIANTS_STATUS {
   ANALYSIS = "analysis",
@@ -51,8 +59,6 @@ export const TYPE_COMMENT = "comment";
 export const API_URL = "http://localhost:8080";
 export const BASE_API_AUTH_URL = "/api/auth";
 export const LOGIN_URL = "/signin";
-export const POST_IDEA_URL = "/addNewIdea";
-export const DELETE_IDEA_URL = "/deleteIdea";
-export const GET_ALL_IDEAS = "/getAllIdea";
-export const CHANGE_COMMENT = "/changeComment";
-export const CHANGE_STATUS = "/changeStatus";
+
+export const MOCK_API_URL = "https://6540d3b745bedb25bfc2b3c5.mockapi.io";
+export const MOCK_API_BASE = "/ideas";

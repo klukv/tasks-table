@@ -1,8 +1,8 @@
-import { IUser } from "./user";
 export interface IIdea {
   date: string;
   tags: string;
   text: string;
+  author: string;
   state: string;
   comments: string;
   sequenceNumber?: number
@@ -20,7 +20,6 @@ export interface ITextFormCreate {
 
 export interface IAllIdeas extends IIdea {
   id:number,
-  author: IUser
 }
 
 export interface IChangeContent {

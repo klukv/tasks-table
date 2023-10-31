@@ -2,15 +2,27 @@ import React, { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 
 import arrow_down from "../../assets/img/arrow_down.svg";
+import { useDispatch } from "react-redux";
+import { statusList } from "../../utils/const";
+import { addStatus } from "../../redux/slices/filter";
 
 function Status() {
+  const dispatch = useDispatch();
   const refAuthorMenu = useRef<HTMLDivElement>(null);
   const [activePopup, setActivePopup] = useState(false);
-  const [radioState, setRadioState] = useState("1");
+  const [radioState, setRadioState] = useState("0");
 
   //функция для переключения radio кнопок
-  const changeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeRadio = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    nameStatus: string
+  ) => {
     setRadioState(event?.target.value);
+    dispatch(addStatus(nameStatus));
+  };
+
+  const clickAccpetFilter = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
 
   //Кастомный хук для отслеживания клика в области выпадающего списка
@@ -27,6 +39,7 @@ function Status() {
         </span>
       </button>
       <form
+        onSubmit={(event) => clickAccpetFilter(event)}
         className={
           !activePopup
             ? "filter-status__form absolute invisible opacity-0 duration-[200ms] ease-in-out top-[46px] left-[-50px] min-w-[200px] bg-[#dde9fc] border-[1px] border-solid border-[#80B6FF] rounded-[10px]"
@@ -35,49 +48,29 @@ function Status() {
       >
         <div className="filter-status__inner p-[10px]">
           <ul className="filter-status__list">
-            <li className="filter-status__list-point flex items-center p-[5px] mb-[10px]">
-              <input
-                type="radio"
-                className="filter-status__input"
-                checked={radioState === "1" ? true : false}
-                onChange={(event) => changeRadio(event)}
-                value="1"
-              />
-              <div className="filter-status__info ml-[8px]">Анализ</div>
-            </li>
-            <li className="filter-status__list-point flex items-center p-[5px] mb-[10px]">
-              <input
-                type="radio"
-                className="filter-status__input"
-                checked={radioState === "2" ? true : false}
-                onChange={(event) => changeRadio(event)}
-                value="2"
-              />
-              <div className="filter-status__info ml-[8px]">Принято</div>
-            </li>
-            <li className="filter-status__list-point flex items-center p-[5px] mb-[10px]">
-              <input
-                type="radio"
-                className="filter-status__input"
-                checked={radioState === "3" ? true : false}
-                onChange={(event) => changeRadio(event)}
-                value="3"
-              />
-              <div className="filter-status__info ml-[8px]">Отклонен</div>
-            </li>
-            <li className="filter-status__list-point flex items-center p-[5px] mb-[10px]">
-              <input
-                type="radio"
-                className="filter-status__input"
-                checked={radioState === "4" ? true : false}
-                onChange={(event) => changeRadio(event)}
-                value="4"
-              />
-              <div className="filter-status__info ml-[8px]">Отложен</div>
-            </li>
+            {statusList.map((status) => (
+              <li
+                key={status.id}
+                className="filter-status__list-point flex items-center p-[5px] mb-[10px]"
+              >
+                <input
+                  type="radio"
+                  className="filter-status__input"
+                  checked={radioState === status.id.toString() ? true : false}
+                  onChange={(event) => changeRadio(event, status.name)}
+                  value={status.id}
+                />
+                <div className="filter-status__info ml-[8px]">
+                  {status.name}
+                </div>
+              </li>
+            ))}
           </ul>
           <div className="filter-status__button flex justify-center">
-            <button className="filter-status__btn py-[8px] px-[20px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out">
+            <button
+              className="filter-status__btn py-[8px] px-[20px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out"
+              type="submit"
+            >
               Применить
             </button>
           </div>

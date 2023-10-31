@@ -45,7 +45,7 @@ function App() {
   }, [isAuthUser]);
 
   return (
-    <div className="wrapper">
+    <div className="wrapper mb-[64px]">
       <PopupContext.Provider
         value={{
           idSelectIdea,

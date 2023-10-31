@@ -42,7 +42,7 @@ const RowTable: React.FC<IAllIdeas> = ({
         {text}
       </td>
       <td className="author text-left border-none py-[10px] px-[15px] align-top w-[150px] break-all">
-        {author.username}
+        {author}
       </td>
       <td className="status relative text-left border-none py-[10px] px-[15px] align-top w-[150px] break-all">
         {state}

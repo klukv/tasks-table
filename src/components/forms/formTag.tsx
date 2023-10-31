@@ -2,10 +2,29 @@ import React, { useRef, useState } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 
 import arrow_down from "../../assets/img/arrow_down.svg";
+import { stateDropdown } from "../../utils/const";
+import { useDispatch } from "react-redux";
+import { addTags, removeTags } from "../../redux/slices/filter";
 
 function FormTag() {
+  const dispatch = useDispatch();
   const refTagMenu = useRef<HTMLDivElement>(null);
   const [activePopup, setActivePopup] = useState(false);
+
+  const changeTag = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    nameTag: string
+  ) => {
+    if (event.target.checked) {
+      dispatch(addTags(nameTag));
+    } else {
+      dispatch(removeTags(nameTag));
+    }
+  };
+
+  const clickAccpetFilter = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
 
   //Кастомный хук для отслеживания клика в области выпадающего списка
   useClickOutside(refTagMenu, setActivePopup, activePopup);
@@ -22,6 +41,7 @@ function FormTag() {
         </span>
       </button>
       <form
+        onSubmit={(event) => clickAccpetFilter(event)}
         className={
           !activePopup
             ? "filter-tags__form absolute invisible opacity-0 duration-[200ms] ease-in-out top-[46px] left-[-50px] min-w-[200px] bg-[#dde9fc] border-[1px] border-solid border-[#80B6FF] rounded-[10px]"
@@ -30,37 +50,25 @@ function FormTag() {
       >
         <div className="filter-tags__inner p-[10px]">
           <ul className="filter-tags__list">
-            <li className="filter-tags__list-point flex items-center p-[5px] mb-[10px]">
-              <input type="checkbox" className="filter-tags__input" />
-              <div className="filter-tags__info ml-[8px]">Анализ</div>
-            </li>
-            <li className="filter-tags__list-point flex items-center p-[5px] mb-[10px]">
-              <input type="checkbox" className="filter-tags__input" />
-              <div className="filter-tags__info ml-[8px]">Дизайн</div>
-            </li>
-            <li className="filter-tags__list-point flex items-center p-[5px] mb-[10px]">
-              <input type="checkbox" className="filter-tags__input" />
-              <div className="filter-tags__info ml-[8px]">Верстка</div>
-            </li>
-            <li className="filter-tags__list-point flex items-center p-[5px] mb-[10px]">
-              <input type="checkbox" className="filter-tags__input" />
-              <div className="filter-tags__info ml-[8px]">Программирование</div>
-            </li>
-            <li className="filter-tags__list-point flex items-center p-[5px] mb-[10px]">
-              <input type="checkbox" className="filter-tags__input" />
-              <div className="filter-tags__info ml-[8px]">Тестирование</div>
-            </li>
-            <li className="filter-tags__list-point flex items-center p-[5px] mb-[10px]">
-              <input type="checkbox" className="filter-tags__input" />
-              <div className="filter-tags__info ml-[8px]">SEO и наполнение</div>
-            </li>
-            <li className="filter-tags__list-point flex items-center p-[5px] mb-[10px]">
-              <input type="checkbox" className="filter-tags__input" />
-              <div className="filter-tags__info ml-[8px]">Запуск проекта</div>
-            </li>
+            {stateDropdown.options.map((tag) => (
+              <li
+                key={tag.id}
+                className="filter-tags__list-point flex items-center p-[5px] mb-[10px]"
+              >
+                <input
+                  type="checkbox"
+                  className="filter-tags__input"
+                  onChange={(event) => changeTag(event, tag.name)}
+                />
+                <div className="filter-tags__info ml-[8px]">{tag.name}</div>
+              </li>
+            ))}
           </ul>
           <div className="filter-tags__button flex justify-center">
-            <button className="filter-tags__btn py-[8px] px-[20px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out">
+            <button
+              className="filter-tags__btn py-[8px] px-[20px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out"
+              type="submit"
+            >
               Применить
             </button>
           </div>

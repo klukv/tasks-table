@@ -27,13 +27,12 @@ function Main() {
   };
 
   useEffect(() => {
+    //формирование ссылки с параметрами фильтрации
+    let url = "?";
+    //запрос на бекенд
     if (userInfo.id && userInfo.id !== 0) {
-      getAllIdeas().then((data) => {
-        const newData = data.map((idea) => {
-          idea.author.password = "Тут нет никакого пароля:)";
-          return idea;
-        });
-        dispatch(setIdeas(newData));
+      getAllIdeas(url).then((data) => {
+        dispatch(setIdeas(data));
         if (isChangeContent.isChangeComment) {
           dispatch(setChangeComment(false));
         }
@@ -68,7 +67,7 @@ function Main() {
                 className="ideas__adding-btn relative rounded-[7px] py-[8px] pr-[12px] pl-[45px] bg-[#E1EDFF] border-[1px] border-solid border-[#AABBF6] shadow-[0_1px_2px_1px_rgba(0,0,0,0.15)] hover:bg-[#95a9f1] duration-[200ms] ease-in-out"
                 onClick={() => clickLink("create-idea")}
               >
-                Добавить идею{" "}
+                Добавить идею
                 <span className="plus absolute top-[13px] left-[16px] w-[15px] h-[15px]">
                   <img src={plus_adding} className="w-full h-full" alt="plus" />
                 </span>

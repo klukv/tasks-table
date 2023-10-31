@@ -1,28 +1,32 @@
-import { CHANGE_COMMENT, CHANGE_STATUS, DELETE_IDEA_URL, GET_ALL_IDEAS, POST_IDEA_URL } from "../utils/const";
+import { MOCK_API_BASE } from "../utils/const";
 import { IAllIdeas, IIdea } from "../models/main";
-import { $authHost } from "./authService";
+import { $mockHost } from "./authService";
 
-export const createIdea = async (userId: number, idea: IIdea) => {
-  const { data } = await $authHost.post(POST_IDEA_URL + "/" + userId, idea);
+export const createIdea = async (idea: IIdea) => {
+  const { data } = await $mockHost.post(MOCK_API_BASE, idea);
   return data;
 };
 
-export const getAllIdeas = async (): Promise<IAllIdeas[]> => {
-  const { data } = await $authHost.get<IAllIdeas[]>(GET_ALL_IDEAS);
+export const getAllIdeas = async (urlFilter: string): Promise<IAllIdeas[]> => {
+  const { data } = await $mockHost.get<IAllIdeas[]>(MOCK_API_BASE + urlFilter);
   return data;
 };
 
 export const changeComment = async (userId: number, comment: string) => {
-  const { data } = await $authHost.post(CHANGE_COMMENT + `/${userId}?comment=${comment}`);
+  const { data } = await $mockHost.put(MOCK_API_BASE + "/" + userId, {
+    comments: comment,
+  });
   return data;
-}
+};
 
 export const changeStatus = async (userId: number, status: string) => {
-  const { data } = await $authHost.post(CHANGE_STATUS + `/${userId}?state=${status}`);
+  const { data } = await $mockHost.put(MOCK_API_BASE + "/" + userId, {
+    state: status,
+  });
   return data;
-}
+};
 
 export const deleteIdea = async (userId: number) => {
-  const { data } = await $authHost.delete(DELETE_IDEA_URL+ '/' + userId);
+  const { data } = await $mockHost.delete(MOCK_API_BASE + "/" + userId);
   return data;
-}
+};

@@ -94,13 +94,13 @@ function ModalEdit() {
                   value="canceled"
                   className="modal-window__point py-[5px]"
                 >
-                  Отклонен
+                  Отклонено
                 </option>
                 <option
                   value="postponed"
                   className="modal-window__point py-[5px]"
                 >
-                  Отложен
+                  Отложено
                 </option>
               </select>
             ) : (
