@@ -8,7 +8,7 @@ export const createIdea = async (idea: IIdea) => {
 };
 
 export const getAllIdeas = async (urlFilter: string): Promise<IAllIdeas[]> => {
-  const { data } = await $mockHost.get<IAllIdeas[]>(MOCK_API_BASE + urlFilter);
+  const { data } = await $mockHost.get<IAllIdeas[]>(MOCK_API_BASE + `?${urlFilter}`);
   return data;
 };
 

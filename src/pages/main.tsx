@@ -1,26 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import plus_adding from "../assets/img/adding_idea.svg";
 import { useNavigate } from "react-router-dom";
 import RowTable from "../components/rowTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllIdeas } from "../services/content";
-import {
-  setChangeComment,
-  setChangeStatus,
-  setIdeas,
-} from "../redux/slices/ideaSlice";
 import { RootState } from "../redux/store";
 import { FormAuthor, FormStatus, FormTag } from "../components/forms";
 import ModalEdit from "../components/modalEdit";
+import qs from "qs";
+import { setChangeComment, setChangeStatus, setIdeas,} from "../redux/slices/ideaSlice";
 
 function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [URL, setURL] = useState("");
   const userInfo = useSelector((state: RootState) => state.userSlice.user);
   const allIdeas = useSelector((state: RootState) => state.ideaSlice.ideasList);
   const isChangeContent = useSelector(
     (state: RootState) => state.ideaSlice.changeContent
   );
+  const filterParams = useSelector((state: RootState) => state.filterSlice);
 
   const clickLink = (route: string) => {
     navigate(route);
@@ -28,10 +27,27 @@ function Main() {
 
   useEffect(() => {
     //формирование ссылки с параметрами фильтрации
-    let url = "?";
+    const URL = qs.stringify(
+      {
+        state: filterParams.status,
+        author: filterParams.author,
+        tags: filterParams.tags,
+      },
+      {
+        filter: (prefix, value: string) => {
+          if (value !== "По умолчанию" && value !== "") {
+            return value;
+          }
+        },
+      }
+    );
+    setURL(URL);
+  }, [filterParams.status, filterParams.author, filterParams.tags]);
+
+  useEffect(() => {
     //запрос на бекенд
     if (userInfo.id && userInfo.id !== 0) {
-      getAllIdeas(url).then((data) => {
+      getAllIdeas(URL).then((data) => {
         dispatch(setIdeas(data));
         if (isChangeContent.isChangeComment) {
           dispatch(setChangeComment(false));
@@ -41,7 +57,7 @@ function Main() {
         }
       });
     }
-  }, [userInfo.id, isChangeContent]);
+  }, [userInfo.id, isChangeContent, URL]);
 
   return (
     <>

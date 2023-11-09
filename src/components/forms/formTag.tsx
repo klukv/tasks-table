@@ -22,10 +22,6 @@ function FormTag() {
     }
   };
 
-  const clickAccpetFilter = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-
   //Кастомный хук для отслеживания клика в области выпадающего списка
   useClickOutside(refTagMenu, setActivePopup, activePopup);
 
@@ -41,7 +37,6 @@ function FormTag() {
         </span>
       </button>
       <form
-        onSubmit={(event) => clickAccpetFilter(event)}
         className={
           !activePopup
             ? "filter-tags__form absolute invisible opacity-0 duration-[200ms] ease-in-out top-[46px] left-[-50px] min-w-[200px] bg-[#dde9fc] border-[1px] border-solid border-[#80B6FF] rounded-[10px]"
@@ -65,12 +60,6 @@ function FormTag() {
             ))}
           </ul>
           <div className="filter-tags__button flex justify-center">
-            <button
-              className="filter-tags__btn py-[8px] px-[20px] rounded-[10px] bg-[#80B6FF] hover:bg-[#5da2fc] duration-[200ms] ease-in-out"
-              type="submit"
-            >
-              Применить
-            </button>
           </div>
         </div>
       </form>

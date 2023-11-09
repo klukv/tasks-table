@@ -64,7 +64,7 @@ function App() {
               <Route path={CREATE_IDEA_URL} element={<Create_Task />} />
             </>
           ) : (
-            <Route key="login-key" path="*" element={<Auth />} />
+            <Route key="login-key" path={AUTH_URL} element={<Auth />} />
           )}
         </Routes>
       </PopupContext.Provider>

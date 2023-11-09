@@ -5,7 +5,6 @@ import { stateDropdown } from "../utils/const";
 import { IDropdownSelectItem, IIdea } from "../models/main";
 
 import close_btn from "../assets/img/close_btn.svg";
-import attach_btn from "../assets/img/attach_btn.svg";
 import { createIdea } from "../services/content";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -133,9 +132,6 @@ function Create_Task() {
             )}
           </div>
           <div className="modal__button flex justify-end relative">
-            <button className="modal__button-attach absolute top-[4px] left-0 w-[20px] h-[20px]">
-              <img src={attach_btn} className="w-full h-full" alt="attach" />
-            </button>
             <button
               className="modal__button-btn bg-[#80B6FF] py-[6px] px-[15px] rounded-[6px] hover:bg-[#5778f1] duration-[200ms] ease-in-out cursor-pointer"
               type="submit"
