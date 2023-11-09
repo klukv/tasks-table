@@ -57,7 +57,7 @@ function Main() {
         }
       });
     }
-  }, [userInfo.id, isChangeContent, URL]);
+  }, [userInfo.id, isChangeContent, URL, dispatch]);
 
   return (
     <>

@@ -42,7 +42,7 @@ function App() {
     if (!isAuthUser) {
       navigate(AUTH_URL);
     }
-  }, [isAuthUser]);
+  }, [isAuthUser, navigate]);
 
   return (
     <div className="wrapper mb-[64px]">
